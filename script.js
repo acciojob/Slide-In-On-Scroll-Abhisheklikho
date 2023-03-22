@@ -1,34 +1,20 @@
-// Your JS code here.
-
-const slideImages = document.querySelectorAll('.slide-in');
-
-function debounce(func, wait = 20, immediate = true) {
-  let timeout;
-  return function() {
-    const context = this, args = arguments;
-    const later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
+const sliderImages = document.querySelectorAll('.slide-in');
 
 function checkSlide() {
-  slideImages.forEach(slideImage => {
-    // half way through the image
-    const slideInAt = (window.scrollY + window.innerHeight) - slideImage.height / 2;
-    // bottom of the image
-    const imageBottom = slideImage.offsetTop + slideImage.height;
-    const isHalfShown = slideInAt > slideImage.offsetTop;
+  sliderImages.forEach(sliderImage => {
+    // get the bottom of the image
+    const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
+    // get the bottom of the image
+    const imageBottom = sliderImage.offsetTop + sliderImage.height;
+    // check if the image is half shown
+    const isHalfShown = slideInAt > sliderImage.offsetTop;
+    // check if the image is not scrolled past
     const isNotScrolledPast = window.scrollY < imageBottom;
+
     if (isHalfShown && isNotScrolledPast) {
-      slideImage.classList.add('active');
+      sliderImage.classList.add('active'); // Add active class to the image
     } else {
-      slideImage.classList.remove('active');
+      sliderImage.classList.remove('active');
     }
   });
 }
